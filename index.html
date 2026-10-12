@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- noindex bleibt, bis Impressum, E-Mail und PayPal eingetragen sind; dann entfernen -->
+<title>Website-Quickcheck in 48 Stunden</title>
+<meta name="description" content="Website-Quickcheck für kleine Unternehmen: 5–10 konkrete Verbesserungen, 3 neue Textabschnitte und ein PDF-Bericht in 48 Stunden. 69 €.">
+<style>
+/* Layout: ein Prüfprotokoll – Kopfzeile, Befund-Auszug als Blatt, Pakete als Tarif-Spalten, Auftragsformular, Rechtliches am Ende. */
+:root {
+  --paper: #eef1ec;
+  --sheet: #f9fbf8;
+  --ink: #17241e;
+  --muted: #56665d;
+  --line: #cdd7cf;
+  --mark: #ffe14d;
+  --on-mark: #1b1a0c;
+  --hot: #b8321b;
+  --mid: #9a6512;
+  --low: #5d6f66;
+  --ok: #1f7a4a;
+  --accent: #17241e;
+  --font-display: "Avenir Next", "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1512; --sheet: #151d19; --ink: #e3ebe5; --muted: #9aaba1; --line: #2c3832;
+    --mark: #e6c93c; --on-mark: #1b1a0c; --hot: #ff7b5e; --mid: #e3a54b; --low: #93a49a; --ok: #5fd08f; --accent: #e3ebe5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1512; --sheet: #151d19; --ink: #e3ebe5; --muted: #9aaba1; --line: #2c3832;
+  --mark: #e6c93c; --on-mark: #1b1a0c; --hot: #ff7b5e; --mid: #e3a54b; --low: #93a49a; --ok: #5fd08f; --accent: #e3ebe5;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.6 var(--font-body); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+a { color: inherit; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--mark); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); letter-spacing: -0.01em; }
+p { margin: 0; }
+.mark { background: linear-gradient(transparent 12%, var(--mark) 12%, var(--mark) 88%, transparent 88%); color: var(--on-mark); padding: 0 .15em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.label { font: 600 .74rem/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+section { padding-block: 72px; border-top: 1px solid var(--line); }
+.lead { color: var(--muted); max-width: 62ch; }
+
+/* Vorschau-Hinweis, solange Impressumsdaten fehlen */
+.preview { background: var(--mark); color: var(--on-mark); font: 600 .9rem/1.4 var(--font-body); padding: 10px 20px; text-align: center; }
+
+/* Kopf */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 700 1.05rem/1 var(--font-display); text-decoration: none; }
+.brand-box { width: 26px; height: 26px; border: 2px solid var(--ink); display: grid; place-items: center; font: 700 .8rem/1 var(--font-mono); }
+.top nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: .92rem; }
+.top nav a { text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-block: 40px 80px; }
+.hero h1 { font-size: clamp(2.1rem, 5vw, 3.5rem); letter-spacing: -0.02em; }
+.hero .lead { margin-top: 20px; font-size: 1.12rem; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; }
+.facts span { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.facts span::before { content: ""; width: 9px; height: 9px; background: var(--ok); }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; font: 700 1rem/1 var(--font-body); text-decoration: none; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn:hover { transform: translateY(-1px); }
+
+/* Befund-Blatt */
+.sheet { background: var(--sheet); border: 1px solid var(--line); box-shadow: 0 1px 0 var(--line), 0 18px 40px -24px rgba(0,0,0,.35); padding: 22px 22px 18px; transform: rotate(.6deg); min-width: 0; }
+.sheet-head { display: flex; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 10px; flex-wrap: wrap; }
+.sheet-head b { font: 700 1rem/1.2 var(--font-display); }
+.meas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding-block: 14px; border-bottom: 1px dashed var(--line); }
+.meas div { min-width: 0; }
+.meas b { display: block; font: 700 1.15rem/1.2 var(--font-mono); font-variant-numeric: tabular-nums; }
+.meas span { font-size: .72rem; color: var(--muted); }
+.finding { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; padding-block: 12px; border-bottom: 1px dashed var(--line); }
+.finding:last-of-type { border-bottom: 0; }
+.prio { font: 700 .68rem/1 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; padding: 5px 7px; border: 1.5px solid currentColor; height: fit-content; margin-top: 2px; }
+.prio.hot { color: var(--hot); } .prio.mid { color: var(--mid); } .prio.low { color: var(--low); }
+.finding h3 { font: 700 1rem/1.3 var(--font-body); }
+.finding p { font-size: .9rem; color: var(--muted); grid-column: 2; }
+.sheet small { display: block; margin-top: 10px; font-size: .74rem; color: var(--muted); }
+
+/* Prüfpunkte */
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 0; margin-top: 34px; border-top: 2px solid var(--ink); }
+.check { padding: 18px 18px 20px 0; border-bottom: 1px solid var(--line); }
+.check .mono { color: var(--muted); font-size: .8rem; }
+.check h3 { font-size: 1.12rem; margin-block: 6px; }
+.check p { font-size: .95rem; color: var(--muted); }
+
+/* Pakete */
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px; align-items: start; }
+.plan { background: var(--sheet); border: 1px solid var(--line); padding: 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.plan.pick { border: 2px solid var(--ink); }
+.plan .tag { align-self: flex-start; background: var(--mark); color: var(--on-mark); font: 700 .72rem/1 var(--font-mono); letter-spacing: .12em; padding: 6px 8px; text-transform: uppercase; }
+.plan h3 { font-size: 1.4rem; }
+.price { font: 700 2.6rem/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.price small { font: 500 .9rem var(--font-body); color: var(--muted); margin-left: 6px; }
+.plan ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: .94rem; }
+.plan li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; }
+.plan li::before { content: "✓"; font-weight: 700; color: var(--ok); }
+.plan li.no { color: var(--muted); }
+.plan li.no::before { content: "–"; color: var(--muted); }
+.plan .btn { justify-content: center; }
+.note { margin-top: 18px; font-size: .9rem; color: var(--muted); max-width: 75ch; }
+
+/* Angebot */
+.offer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; margin-top: 34px; align-items: start; }
+.offer .plan { max-width: 520px; }
+.offer-side h3 { font-size: 1.15rem; margin-bottom: 12px; }
+.need { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 10px; }
+.need li { padding-left: 26px; position: relative; }
+.need li::before { content: "→"; position: absolute; left: 0; font-weight: 700; }
+.pages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+.pages figure { margin: 0; min-width: 0; }
+.pages img { width: 100%; height: auto; border: 1px solid var(--line); box-shadow: 0 12px 30px -20px rgba(0,0,0,.4); background: #fff; }
+.pages figcaption { font-size: .82rem; color: var(--muted); margin-top: 8px; }
+
+/* Ablauf */
+.steps { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 2px solid var(--ink); padding-top: 14px; min-width: 0; }
+.steps li::before { content: "Schritt " counter(s); display: block; font: 600 .74rem/1 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.steps h3 { font-size: 1.08rem; margin-bottom: 6px; }
+.steps p { font-size: .94rem; color: var(--muted); }
+
+/* Nicht enthalten + FAQ */
+.two { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 48px; }
+.nope { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; }
+.nope li { padding-left: 26px; position: relative; font-size: .95rem; }
+.nope li::before { content: "✕"; position: absolute; left: 0; color: var(--hot); font-weight: 700; }
+details { border-bottom: 1px solid var(--line); padding-block: 14px; }
+details:first-of-type { border-top: 2px solid var(--ink); margin-top: 20px; }
+summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font: 700 1.2rem/1 var(--font-mono); }
+details[open] summary::after { content: "–"; }
+details p { margin-top: 10px; color: var(--muted); font-size: .95rem; max-width: 70ch; }
+
+/* Auftrag */
+.order { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 34px; align-items: start; }
+form { background: var(--sheet); border: 1px solid var(--line); padding: 24px; display: grid; gap: 16px; min-width: 0; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+legend, .fl { font-weight: 700; font-size: .95rem; margin-bottom: 4px; }
+input[type=text], input[type=url], textarea { width: 100%; font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--line); padding: 10px 12px; }
+input:focus, textarea:focus { border-color: var(--ink); outline: none; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opt { position: relative; }
+.opt input { position: absolute; opacity: 0; }
+.opt span { display: inline-block; padding: 9px 14px; border: 1.5px solid var(--line); cursor: pointer; font-weight: 600; font-size: .94rem; }
+.opt input:checked + span { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.opt input:focus-visible + span { outline: 3px solid var(--mark); }
+.radio { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 8px; font-size: .92rem; align-items: start; }
+.radio input { margin-top: 4px; }
+.hint { font-size: .82rem; color: var(--muted); }
+.out { background: var(--sheet); border: 1px solid var(--line); padding: 24px; display: grid; gap: 14px; min-width: 0; }
+.addr { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.addr code { font: 700 1rem var(--font-mono); background: var(--paper); border: 1px solid var(--line); padding: 8px 10px; user-select: all; overflow-wrap: anywhere; }
+#mail { min-height: 300px; font: .86rem/1.5 var(--font-mono); resize: vertical; }
+.addr code.ph { background: var(--mark); color: var(--on-mark); }
+.status { font-size: .88rem; color: var(--ok); min-height: 1.3em; }
+
+/* Rechtliches */
+.legal { display: grid; gap: 40px; }
+.legal article { max-width: 78ch; }
+.legal h2 { font-size: 1.5rem; margin-bottom: 14px; }
+.legal h3 { font-size: 1.05rem; margin: 18px 0 6px; }
+.legal p, .legal li { font-size: .92rem; color: var(--muted); }
+.legal p + p { margin-top: 8px; }
+.ph { background: var(--mark); color: var(--on-mark); padding: 0 .2em; }
+footer { padding-block: 34px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .88rem; color: var(--muted); }
+
+@media (max-width: 880px) {
+  .hero, .two, .order { grid-template-columns: minmax(0, 1fr); }
+  .plans, .steps, .offer, .pages { grid-template-columns: minmax(0, 1fr); }
+  .sheet { transform: none; }
+  section { padding-block: 52px; }
+}
+@media (max-width: 480px) {
+  .meas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .top nav { gap: 12px; font-size: .86rem; }
+}
+@media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
+</style>
+
+<div class="preview" id="preview" hidden>Vorschau: Impressum, E-Mail und PayPal sind noch nicht eingetragen. Diesen Link erst teilen, wenn die markierten Angaben ausgefüllt sind.</div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#start"><span class="brand-box" aria-hidden="true">✓</span>Website-Quickcheck</a>
+    <nav aria-label="Seitenbereiche">
+      <a href="#pruefung">Was ich prüfe</a>
+      <a href="#preis">Preis</a>
+      <a href="#beispiel">Beispiel</a>
+      <a href="#ablauf">Ablauf</a>
+      <a href="#fragen">Fragen</a>
+      <a href="#auftrag">Auftrag</a>
+    </nav>
+  </header>
+
+  <main id="start">
+    <div class="hero">
+      <div>
+        <p class="label">Website-Quickcheck für kleine Unternehmen</p>
+        <h1 style="margin-top:14px">Ich prüfe deine Website wie ein Besucher und sage dir, <span class="mark">was zuerst besser werden muss.</span></h1>
+        <p class="lead">Du möchtest, dass Besucher schneller verstehen, was du anbietest und wie sie dich erreichen? Ich prüfe deine öffentliche Website und schicke dir in 48 Stunden einen PDF-Bericht mit 5–10 konkreten Verbesserungen und drei neu formulierten Textabschnitten.</p>
+        <div class="facts"><span>Bericht in 48 Stunden</span><span>Keine Passwörter nötig</span><span>69 € Festpreis</span></div>
+        <div class="cta">
+          <a class="btn" href="#beispiel">Beispielbericht ansehen</a>
+          <a class="btn ghost" href="#auftrag">Auftrag zusammenstellen</a>
+        </div>
+      </div>
+
+      <figure class="sheet" style="margin:0" aria-label="Auszug aus dem Beispielbericht">
+        <div class="sheet-head"><b>Prüfbericht · Auszug</b><span class="label">Beispiel</span></div>
+        <div class="meas">
+          <div><b>8</b><span>Befunde</span></div>
+          <div><b>3</b><span>Prioritäten</span></div>
+          <div><b>3</b><span>neue Texte</span></div>
+          <div><b>7</b><span>Seiten PDF</span></div>
+        </div>
+        <div class="finding"><span class="prio hot">hoch</span><h3>Die Startseite sagt nicht, was der Betrieb anbietet</h3><p>Die große Überschrift lautet „Willkommen auf unserer Homepage!“. Lösung: Leistung und Region nennen, Knopf „Angebot anfragen“.</p></div>
+        <div class="finding"><span class="prio hot">hoch</span><h3>Auf dem Handy ohne Zoomen nicht lesbar</h3><p>Fließtext erscheint rund 5 Pixel hoch. Lösung: mobile Darstellung einschalten.</p></div>
+        <div class="finding"><span class="prio mid">mittel</span><h3>Leistungen als Fachbegriffe ohne Nutzen</h3><p>„WDVS“ wird nicht erklärt. Lösung: in Gruppen mit je einem Satz Nutzen schreiben.</p></div>
+        <small>Aus dem Beispielbericht über eine frei erfundene Demo-Website. Kein echtes Unternehmen.</small>
+      </figure>
+    </div>
+
+    <section id="pruefung" aria-labelledby="h-pruefung">
+      <p class="label">Was ich prüfe</p>
+      <h2 id="h-pruefung" style="margin-top:12px">Der Weg vom ersten Blick zur Anfrage</h2>
+      <p class="lead" style="margin-top:14px">Ich brauche keinen Zugang zu deiner Website. Jeder Befund nennt, was ich sehe, wo es steht, warum es wichtig ist und was du konkret änderst. Die drei wichtigsten Maßnahmen stehen gleich vorne.</p>
+      <div class="checks">
+        <div class="check"><span class="mono">Verständlichkeit</span><h3>Versteht man sofort, was du anbietest?</h3><p>Überschrift, erster Bildschirm, Nutzen für Kunden.</p></div>
+        <div class="check"><span class="mono">Struktur</span><h3>Seitenaufbau und Menü</h3><p>Findet man Leistungen, Preise und Referenzen ohne Suchen?</p></div>
+        <div class="check"><span class="mono">Kontakt</span><h3>Anruf, Mail, Anfrage</h3><p>Wie schnell kommt ein Besucher zum nächsten Schritt?</p></div>
+        <div class="check"><span class="mono">Handy</span><h3>Mobile Darstellung</h3><p>Lesbar, bedienbar und ohne Zoomen nutzbar?</p></div>
+        <div class="check"><span class="mono">Texte</span><h3>Drei neue Textabschnitte</h3><p>Zum Beispiel Überschrift, Leistungsbeschreibung, Kontaktaufforderung.</p></div>
+      </div>
+    </section>
+
+    <section id="preis" aria-labelledby="h-preis">
+      <p class="label">Preis und Umfang</p>
+      <h2 id="h-preis" style="margin-top:12px">Ein Angebot, ein fester Preis</h2>
+      <div class="offer">
+        <article class="plan pick">
+          <span class="tag">Website-Quickcheck</span>
+          <div class="price">69 €</div>
+          <p class="hint">Lieferung 48 Stunden nach allen nötigen Angaben. Zahlung erst nach dem Bericht.</p>
+          <ul>
+            <li>Kurze Zusammenfassung deiner Website und deines Angebots</li>
+            <li>5–10 konkrete Verbesserungsvorschläge mit Beleg</li>
+            <li>Die drei wichtigsten Maßnahmen mit Begründung</li>
+            <li>3 überarbeitete Textabschnitte</li>
+            <li>Übersichtlicher PDF-Bericht</li>
+            <li>1 Korrekturrunde für sachliche Fehler oder kleine Anpassungen</li>
+          </ul>
+          <a class="btn" href="#auftrag">Auftrag zusammenstellen</a>
+        </article>
+        <div class="offer-side">
+          <h3>Was ich von dir brauche</h3>
+          <ul class="need">
+            <li>Adresse deiner Website</li>
+            <li>Branche und wichtigste Zielgruppe</li>
+            <li>Was Besucher tun sollen: anrufen, buchen, anfragen</li>
+            <li>Ob die Texte per du oder per Sie sein sollen</li>
+          </ul>
+          <p class="hint">Gemäß § 19 UStG wird keine Umsatzsteuer berechnet (Kleinunternehmerregelung). 69 € sind der Endpreis.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="beispiel" aria-labelledby="h-beispiel">
+      <p class="label">Beispielbericht</p>
+      <h2 id="h-beispiel" style="margin-top:12px">So sieht der Bericht aus</h2>
+      <p class="lead" style="margin-top:14px">Geprüft wurde eine frei erfundene Website eines Malerbetriebs. Alle Befunde stammen von dieser Demo-Seite, nicht von einem echten Kunden.</p>
+      <div class="pages">
+        <figure><img src="bb-1.jpg" alt="Deckblatt des Beispielberichts" width="496" height="702"><figcaption>Deckblatt</figcaption></figure>
+        <figure><img src="bb-2.jpg" alt="Kurzfazit und die drei wichtigsten Maßnahmen" width="496" height="702"><figcaption>Fazit und Top 3</figcaption></figure>
+        <figure><img src="bb-3.jpg" alt="Erster Befund mit Beobachtung, Beleg und Maßnahme" width="496" height="702"><figcaption>Befund mit Beleg</figcaption></figure>
+      </div>
+      <p style="margin-top:18px"><a class="btn ghost" href="beispielbericht.pdf" target="_blank" rel="noopener">Ganzen Beispielbericht als PDF öffnen</a></p>
+    </section>
+
+    <section id="ablauf" aria-labelledby="h-ablauf">
+      <p class="label">Ablauf</p>
+      <h2 id="h-ablauf" style="margin-top:12px">So läuft ein Auftrag</h2>
+      <ol class="steps">
+        <li><h3>Auftrag per E-Mail</h3><p>Stell unten deinen Auftrag zusammen und schick ihn mir per E-Mail.</p></li>
+        <li><h3>Bestätigung</h3><p>Ich bestätige den Auftrag per E-Mail. Damit ist der Vertrag geschlossen.</p></li>
+        <li><h3>Bericht in 48 Stunden</h3><p>Du bekommst den PDF-Bericht per E-Mail, mit Prioritäten und Lösungen.</p></li>
+        <li><h3>Rechnung</h3><p>Erst nach dem Bericht kommt die Rechnung. Zahlung per Überweisung oder PayPal.</p></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="h-nope">
+      <div class="two">
+        <div>
+          <p class="label">Ehrlich gesagt</p>
+          <h2 id="h-nope" style="margin-top:12px">Was nicht dabei ist</h2>
+          <ul class="nope">
+            <li>Keine Umsetzung: Ich ändere nichts an deiner Website.</li>
+            <li>Keine Rechtsberatung. Ob Impressum und Datenschutz korrekt sind, kann nur ein Anwalt prüfen.</li>
+            <li>Keine Garantie für bessere Google-Plätze, mehr Besucher oder mehr Umsatz.</li>
+            <li>Kein Sicherheits- oder Penetrationstest.</li>
+            <li>Keine Seiten hinter einem Login und kein Zugriff auf Backend, Hosting oder Statistiken.</li>
+            <li>Keine Barrierefreiheits-Zertifizierung nach BFSG oder WCAG.</li>
+            <li>Keine laufende Betreuung. Der Bericht ist eine Momentaufnahme.</li>
+          </ul>
+        </div>
+        <div id="fragen">
+          <p class="label">Häufige Fragen</p>
+          <h2 style="margin-top:12px">Fragen und Antworten</h2>
+          <details><summary>Brauche ich Zugang zu meiner Website oder Passwörter?</summary><p>Nein. Ich prüfe nur, was jeder Besucher öffentlich sehen kann. Bitte schick mir niemals Passwörter.</p></details>
+          <details><summary>Wie schnell bekomme ich den Bericht?</summary><p>Innerhalb von 48 Stunden, nachdem alle Angaben vollständig vorliegen. Du bekommst ihn als PDF per E-Mail.</p></details>
+          <details><summary>Was steht genau im Bericht?</summary><p>Ein Kurzfazit, die drei wichtigsten Maßnahmen, 5–10 Befunde mit Beobachtung, Beleg, Bedeutung und konkreter Maßnahme sowie drei neu formulierte Textabschnitte. Das Beispiel oben zeigt den Aufbau.</p></details>
+          <details><summary>Änderst du etwas an meiner Website?</summary><p>Nein. Du bekommst einen Bericht mit Empfehlungen. Umsetzen kannst du selbst oder über deine Webagentur.</p></details>
+          <details><summary>Garantierst du bessere Google-Platzierungen?</summary><p>Nein, und das kann niemand seriös garantieren. Ich zeige, was sich verbessern lässt. Wie stark sich das auswirkt, hängt von vielen Dingen ab, die ich nicht beeinflussen kann.</p></details>
+          <details><summary>Prüfst du, ob mein Impressum rechtlich korrekt ist?</summary><p>Nein. Ich prüfe nur, ob Impressum und Datenschutzerklärung vorhanden und leicht zu finden sind. Für die rechtliche Prüfung brauchst du einen Anwalt.</p></details>
+          <details><summary>Klappt das auch mit Wix, Jimdo, WordPress oder Shops?</summary><p>Ja, solange die Seiten öffentlich erreichbar sind. Bei Baukästen berücksichtige ich, dass manche Einstellungen eingeschränkt sind.</p></details>
+          <details><summary>Was, wenn ich mit dem Bericht nicht zufrieden bin?</summary><p>Eine Korrekturrunde für sachliche Fehler oder kleine Anpassungen ist enthalten. Wenn ich die Leistung nicht wie beschrieben liefere, melde dich, wir klären das fair. Deine gesetzlichen Rechte, etwa das Widerrufsrecht, bleiben unberührt.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="auftrag" aria-labelledby="h-auftrag">
+      <p class="label">Auftrag</p>
+      <h2 id="h-auftrag" style="margin-top:12px">Stell deinen Auftrag zusammen</h2>
+      <p class="lead" style="margin-top:14px">Füll die Felder aus. Rechts entsteht der fertige Text für deine E-Mail. Kopiere ihn und schick ihn an die angezeigte Adresse. Bezahlt wird erst nach dem Bericht.</p>
+      <div class="order">
+        <form id="f" novalidate>
+          <div><label class="fl" for="url">Adresse deiner Website</label><input type="url" id="url" placeholder="https://www.deine-seite.de" autocomplete="url"></div>
+          <div><label class="fl" for="branche">Branche und wichtigste Zielgruppe</label><input type="text" id="branche" placeholder="z. B. Friseur in Rastatt, vor allem Berufstätige"></div>
+          <div><label class="fl" for="ziel">Was sollen Besucher tun?</label><input type="text" id="ziel" placeholder="z. B. anrufen, online buchen, Anfrage schicken"></div>
+          <fieldset>
+            <legend>Texte per</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="ton" id="ton-du" value="du" checked><span>du</span></label>
+              <label class="opt"><input type="radio" name="ton" id="ton-sie" value="Sie"><span>Sie</span></label>
+            </div>
+          </fieldset>
+          <div><label class="fl" for="name">Name oder Firma</label><input type="text" id="name" autocomplete="name"></div>
+          <div><label class="fl" for="billing">Rechnungsadresse</label><input type="text" id="billing" placeholder="Straße, PLZ Ort" autocomplete="street-address"></div>
+          <fieldset>
+            <legend>Zahlung nach dem Bericht</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="pay" id="pay-bank" value="Überweisung" checked><span>Überweisung</span></label>
+              <label class="opt"><input type="radio" name="pay" id="pay-pp" value="PayPal"><span>PayPal</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Wann soll ich anfangen?</legend>
+            <label class="radio"><input type="radio" name="start" id="start-now" value="now" checked><span>Sofort, Bericht in 48 Stunden. Ich verlange ausdrücklich, dass vor Ablauf der Widerrufsfrist begonnen wird, und weiß, dass mein Widerrufsrecht bei vollständiger Erbringung erlischt.</span></label>
+            <label class="radio"><input type="radio" name="start" id="start-wait" value="wait"><span>Erst nach Ablauf der 14-tägigen Widerrufsfrist.</span></label>
+            <p class="hint">Gilt für Privatpersonen. Details stehen in der <a href="#widerruf">Widerrufsbelehrung</a>.</p>
+          </fieldset>
+        </form>
+
+        <div class="out" aria-live="polite">
+          <div>
+            <p class="fl">An diese Adresse senden</p>
+            <div class="addr"><code id="toAddr" data-k="email"></code><a class="btn ghost" id="mailto" href="#">E-Mail-Programm öffnen</a></div>
+            <p class="hint" style="margin-top:6px">Falls sich kein E-Mail-Programm öffnet: Adresse und Text kopieren und selbst senden.</p>
+          </div>
+          <div>
+            <label class="fl" for="mail">Text für deine E-Mail</label>
+            <textarea id="mail" readonly></textarea>
+          </div>
+          <div class="cta" style="margin-top:0"><button class="btn" type="button" id="copy">Text kopieren</button></div>
+          <p class="status" id="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="legal" aria-label="Rechtliches">
+      <article id="impressum">
+        <h2>Impressum</h2>
+        <p>Angaben gemäß § 5 DDG</p>
+        <p><span data-k="name"></span><br><span data-k="street"></span><br><span data-k="city"></span></p>
+        <h3>Kontakt</h3>
+        <p>E-Mail: <span data-k="email"></span><br>Telefon: <span data-k="phone"></span></p>
+        <h3>Umsatzsteuer</h3>
+        <p>Kleinunternehmer gemäß § 19 UStG. Es wird keine Umsatzsteuer ausgewiesen.</p>
+      </article>
+
+      <article id="datenschutz">
+        <h2>Datenschutzerklärung</h2>
+        <h3>1. Verantwortlicher</h3>
+        <p><span data-k="name"></span>, <span data-k="street"></span>, <span data-k="city"></span>, E-Mail: <span data-k="email"></span></p>
+        <h3>2. Bereitstellung dieser Seite</h3>
+        <p>Diese Seite wird über GitHub Pages bereitgestellt (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA, ein Unternehmen der Microsoft-Gruppe). Beim Aufruf verarbeitet der Anbieter technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browser-Informationen, um die Seite auszuliefern und den Betrieb zu sichern. Dabei ist eine Übermittlung in die USA möglich. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mehr dazu in der Datenschutzerklärung von GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub-Datenschutzerklärung</a>.</p>
+        <p>Ich selbst setze auf dieser Seite keine Cookies, keine Analyse- oder Werbewerkzeuge und lade keine Schriften oder Inhalte von Drittanbietern. Die Eingaben im Auftragsformular bleiben in deinem Browser und werden nicht übertragen.</p>
+        <h3>3. Kontakt und Aufträge per E-Mail</h3>
+        <p>Wenn du mir schreibst oder einen Auftrag erteilst, verarbeite ich deine Angaben (E-Mail-Adresse, Name, Anschrift, Website-Adresse, Inhalt der Nachricht), um die Anfrage zu beantworten und den Auftrag auszuführen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Rechnungsdaten bewahre ich wegen steuerrechtlicher Pflichten auf (Art. 6 Abs. 1 lit. c DSGVO). Alles andere lösche ich, sobald es nicht mehr gebraucht wird.</p>
+        <h3>4. Zahlung</h3>
+        <p>Bei Zahlung per Überweisung verarbeiten die beteiligten Banken die Zahlungsdaten. Bei Zahlung per PayPal werden die Zahlungsdaten an die PayPal (Europe) S.à r.l. et Cie, S.C.A., Luxemburg, übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
+        <h3>5. Deine Rechte</h3>
+        <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15 bis 21 DSGVO). Schreib dazu an die oben genannte E-Mail-Adresse. Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, zum Beispiel bei der für meinen Wohnsitz zuständigen.</p>
+      </article>
+
+      <article id="widerruf">
+        <h2>Widerrufsbelehrung für Verbraucher</h2>
+        <h3>Widerrufsrecht</h3>
+        <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.</p>
+        <p>Um Ihr Widerrufsrecht auszuüben, müssen Sie mich (<span data-k="name"></span>, <span data-k="street"></span>, <span data-k="city"></span>, E-Mail: <span data-k="email"></span>) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief oder eine E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das unten stehende Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist.</p>
+        <p>Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p>
+        <h3>Folgen des Widerrufs</h3>
+        <p>Wenn Sie diesen Vertrag widerrufen, habe ich Ihnen alle Zahlungen, die ich von Ihnen erhalten habe, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei mir eingegangen ist. Für diese Rückzahlung verwende ich dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.</p>
+        <p>Haben Sie verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, so haben Sie mir einen angemessenen Betrag zu zahlen, der dem Anteil der bis zu dem Zeitpunkt, zu dem Sie mich von der Ausübung des Widerrufsrechts unterrichten, bereits erbrachten Dienstleistungen im Vergleich zum Gesamtumfang der im Vertrag vorgesehenen Dienstleistungen entspricht.</p>
+        <h3>Erlöschen des Widerrufsrechts</h3>
+        <p>Das Widerrufsrecht erlischt, wenn ich die Dienstleistung vollständig erbracht habe und Sie vorher ausdrücklich zugestimmt haben, dass ich vor Ablauf der Widerrufsfrist beginne, und Sie Ihre Kenntnis davon bestätigt haben, dass Sie Ihr Widerrufsrecht bei vollständiger Vertragserfüllung verlieren.</p>
+        <h3>Muster-Widerrufsformular</h3>
+        <p>(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie bitte dieses Formular aus und senden Sie es zurück.)</p>
+        <p>An <span data-k="name"></span>, <span data-k="street"></span>, <span data-k="city"></span>, E-Mail: <span data-k="email"></span>:<br>
+        Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung (*)<br>
+        Bestellt am (*)<br>Name des/der Verbraucher(s)<br>Anschrift des/der Verbraucher(s)<br>Unterschrift des/der Verbraucher(s) (nur bei Mitteilung auf Papier)<br>Datum<br>(*) Unzutreffendes streichen.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <span>Website-Quickcheck · <span data-k="name"></span></span>
+    <span><a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a> · <a href="#widerruf">Widerruf</a></span>
+  </footer>
+</div>
+
+<script>
+// Anbieterdaten: hier eintragen, dann ist die Seite fertig zum Teilen.
+const ANBIETER = {
+  name: '',     // Vor- und Nachname (ggf. Firmenbezeichnung)
+  street: '',   // Straße und Hausnummer
+  city: '',     // PLZ und Ort
+  email: '',    // Kontakt-E-Mail
+  phone: '',    // Telefon (oder leer lassen und Zeile entfernen)
+  paypal: '',   // PayPal-Adresse oder paypal.me-Link
+}
+const LABELS = { name: '[Name]', street: '[Straße Hausnr.]', city: '[PLZ Ort]', email: '[E-Mail]', phone: '[Telefon]' }
+
+// Platzhalter füllen bzw. markieren
+let missing = false
+document.querySelectorAll('[data-k]').forEach((el) => {
+  const k = el.dataset.k
+  const v = ANBIETER[k]
+  if (v) el.textContent = v
+  else { el.textContent = LABELS[k] || '[fehlt]'; el.classList.add('ph'); missing = true }
+})
+if (missing || !ANBIETER.paypal) document.getElementById('preview').hidden = false
+
+const $ = (id) => document.getElementById(id)
+const val = (id) => $(id).value.trim()
+
+function build() {
+  const pay = document.querySelector('input[name=pay]:checked').value
+  const ton = document.querySelector('input[name=ton]:checked').value
+  const now = $('start-now').checked
+  const lines = [
+    'Betreff: Auftrag Website-Quickcheck',
+    '',
+    'Hallo,',
+    '',
+    'ich möchte einen Website-Quickcheck für 69 € beauftragen.',
+    '',
+    'Website: ' + (val('url') || '[Adresse der Website]'),
+    'Branche und Zielgruppe: ' + (val('branche') || '[Branche und Zielgruppe]'),
+    'Besucher sollen: ' + (val('ziel') || '[z. B. anrufen, buchen, anfragen]'),
+    'Texte per: ' + ton,
+    '',
+    'Name/Firma: ' + (val('name') || '[Name oder Firma]'),
+    'Rechnungsadresse: ' + (val('billing') || '[Straße, PLZ Ort]'),
+    'Zahlung nach dem Bericht per: ' + pay,
+    '',
+    now
+      ? 'Ich verlange ausdrücklich, dass Sie vor Ablauf der Widerrufsfrist mit der Leistung beginnen. Mir ist bekannt, dass mein Widerrufsrecht bei vollständiger Erbringung der Leistung erlischt.'
+      : 'Bitte beginnen Sie erst nach Ablauf der 14-tägigen Widerrufsfrist.',
+    '',
+    'Viele Grüße',
+    val('name') || '[Name]',
+  ]
+  $('mail').value = lines.join('\n')
+  const to = ANBIETER.email || ''
+  $('mailto').href = 'mailto:' + to + '?subject=' + encodeURIComponent('Auftrag Website-Quickcheck') + '&body=' + encodeURIComponent(lines.slice(2).join('\n'))
+  $('status').textContent = ''
+}
+
+$('f').addEventListener('input', build)
+$('f').addEventListener('change', build)
+$('f').addEventListener('submit', (e) => e.preventDefault())
+$('copy').addEventListener('click', async () => {
+  const t = $('mail')
+  try { await navigator.clipboard.writeText(t.value); $('status').textContent = 'Text kopiert. Jetzt in deine E-Mail einfügen und senden.' }
+  catch { t.focus(); t.select(); $('status').textContent = 'Text ist markiert. Mit Strg+C (bzw. Cmd+C) kopieren.' }
+})
+build()
+</script>
