@@ -346,13 +346,67 @@ footer { padding-block: 34px 48px; border-top: 1px solid var(--line); display: f
       </div>
     </section>
 
+    <section id="leistungen" aria-labelledby="h-leistungen">
+      <p class="label">Weitere Leistungen</p>
+      <h2 id="h-leistungen" style="margin-top:12px">Wenn du mehr als einen Check brauchst</h2>
+      <p class="lead" style="margin-top:14px">Feste Preise, keine Umsatzsteuer (Kleinunternehmer), Zahlung erst nach der Lieferung. Alle Beispiele sind frei erfunden und so gekennzeichnet.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px">
+        <article class="plan" style="padding:20px">
+          <span class="tag">Digitale Speisekarte</span>
+          <div class="price">49 €</div>
+          <p class="hint">Für Cafés, Imbisse, Restaurants, Bars, Eisdielen. Lieferung 3 Werktage.</p>
+          <ul>
+            <li>Handy-Speisekarte mit Kategorien (bis 40 Gerichte)</li>
+            <li>Druckfertiges PDF (A4)</li>
+            <li>QR-Code für Tischaufsteller (PNG und SVG)</li>
+            <li>1 Korrekturrunde</li>
+          </ul>
+          <p class="hint">Allergen- und Zusatzstoffangaben liefert der Betrieb.</p>
+          <a class="btn ghost" href="beispiele/speisekarte-beispiel.html" target="_blank" rel="noopener">Beispiel ansehen</a>
+        </article>
+        <article class="plan" style="padding:20px">
+          <span class="tag">Flyer</span>
+          <div class="price">35 €</div>
+          <p class="hint">Für Handwerker, Läden, Vereine, Aktionen. Lieferung 3 Werktage.</p>
+          <ul>
+            <li>1 Flyer DIN A5 oder Preisliste</li>
+            <li>Druckfertiges PDF mit Beschnitt</li>
+            <li>Bildversion für WhatsApp und Social Media</li>
+            <li>1 Korrekturrunde</li>
+          </ul>
+          <p class="hint">Druck und Versand nicht enthalten.</p>
+          <a class="btn ghost" href="beispiele/flyer-beispiel.pdf" target="_blank" rel="noopener">Beispiel ansehen</a>
+        </article>
+        <article class="plan" style="padding:20px">
+          <span class="tag">Landingpage</span>
+          <div class="price">149 €</div>
+          <p class="hint">Für Betriebe ohne oder mit veralteter Website. Lieferung 5 Werktage.</p>
+          <ul>
+            <li>1 Seite, bis zu 6 Abschnitte, für Handy und Desktop</li>
+            <li>Klickbare Telefonnummer, Anfrage-Knopf</li>
+            <li>Seitentitel und Beschreibung für Google</li>
+            <li>Fertige Datei plus Anleitung zum Hochladen</li>
+          </ul>
+          <p class="hint">Domain, Hosting, Impressum liefert der Kunde.</p>
+          <a class="btn ghost" href="beispiele/landingpage-beispiel.html" target="_blank" rel="noopener">Beispiel ansehen</a>
+        </article>
+      </div>
+    </section>
     <section id="auftrag" aria-labelledby="h-auftrag">
       <p class="label">Auftrag</p>
       <h2 id="h-auftrag" style="margin-top:12px">Stell deinen Auftrag zusammen</h2>
       <p class="lead" style="margin-top:14px">Füll die Felder aus. Rechts entsteht der fertige Text für deine E-Mail. Kopiere ihn und schick ihn an die angezeigte Adresse. Bezahlt wird erst nach dem Bericht.</p>
       <div class="order">
         <form id="f" novalidate>
-          <div><label class="fl" for="url">Adresse deiner Website</label><input type="url" id="url" placeholder="https://www.deine-seite.de" autocomplete="url"></div>
+          <fieldset>
+            <legend>Welche Leistung?</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="leistung" value="Website-Quickcheck|69" checked><span>Quickcheck 69 €</span></label>
+              <label class="opt"><input type="radio" name="leistung" value="Digitale Speisekarte mit QR-Code|49"><span>Speisekarte 49 €</span></label>
+              <label class="opt"><input type="radio" name="leistung" value="Flyer|35"><span>Flyer 35 €</span></label>
+              <label class="opt"><input type="radio" name="leistung" value="Landingpage|149"><span>Landingpage 149 €</span></label>
+            </div>
+          </fieldset>          <div><label class="fl" for="url">Adresse deiner Website (falls vorhanden)</label><input type="url" id="url" placeholder="https://www.deine-seite.de" autocomplete="url"></div>
           <div><label class="fl" for="branche">Branche und wichtigste Zielgruppe</label><input type="text" id="branche" placeholder="z. B. Friseur in Rastatt, vor allem Berufstätige"></div>
           <div><label class="fl" for="ziel">Was sollen Besucher tun?</label><input type="text" id="ziel" placeholder="z. B. anrufen, online buchen, Anfrage schicken"></div>
           <fieldset>
@@ -474,16 +528,17 @@ const val = (id) => $(id).value.trim()
 
 function build() {
   const pay = document.querySelector('input[name=pay]:checked').value
+  const [lname, lprice] = document.querySelector('input[name=leistung]:checked').value.split('|')
   const ton = document.querySelector('input[name=ton]:checked').value
   const now = $('start-now').checked
   const lines = [
-    'Betreff: Auftrag Website-Quickcheck',
+    'Betreff: Auftrag ' + lname,
     '',
     'Hallo,',
     '',
-    'ich möchte einen Website-Quickcheck für 69 € beauftragen.',
+    'ich möchte folgende Leistung beauftragen: ' + lname + ' für ' + lprice + ' €.',
     '',
-    'Website: ' + (val('url') || '[Adresse der Website]'),
+    'Website: ' + (val('url') || '[Adresse der Website, falls vorhanden]'),
     'Branche und Zielgruppe: ' + (val('branche') || '[Branche und Zielgruppe]'),
     'Besucher sollen: ' + (val('ziel') || '[z. B. anrufen, buchen, anfragen]'),
     'Texte per: ' + ton,
@@ -501,7 +556,7 @@ function build() {
   ]
   $('mail').value = lines.join('\n')
   const to = ANBIETER.email || ''
-  $('mailto').href = 'mailto:' + to + '?subject=' + encodeURIComponent('Auftrag Website-Quickcheck') + '&body=' + encodeURIComponent(lines.slice(2).join('\n'))
+  $('mailto').href = 'mailto:' + to + '?subject=' + encodeURIComponent('Auftrag ' + lname) + '&body=' + encodeURIComponent(lines.slice(2).join('\n'))
   $('status').textContent = ''
 }
 
