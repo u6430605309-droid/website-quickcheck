@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://u6430605309-droid.github.io/website-quickcheck/sitemap.xml

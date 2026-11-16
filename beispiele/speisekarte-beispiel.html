@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speisekarte · Café Beispielbohne</title>
+<!-- BEISPIEL: fiktives Café, Muster für das Angebot „Digitale Speisekarte mit QR-Code“. Allergenangaben sind erfunden. -->
+<style>
+  :root { --bg: #fbf6ee; --ink: #2b211a; --muted: #7a6a5c; --line: #e6dccd; --accent: #b5562b; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  .demo { background: #b8321b; color: #fff; font-size: 12px; text-align: center; padding: 5px; }
+  header { text-align: center; padding: 28px 20px 10px; }
+  header h1 { font: 700 30px/1.1 Georgia, serif; margin: 0; }
+  header p { color: var(--muted); margin: 6px 0 0; font-size: 14px; }
+  nav { position: sticky; top: 0; background: var(--bg); border-bottom: 1px solid var(--line); display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px; }
+  nav a { flex: none; text-decoration: none; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 14px; background: #fff; }
+  main { max-width: 620px; margin: 0 auto; padding: 8px 16px 40px; }
+  h2 { font: 700 21px Georgia, serif; color: var(--accent); margin: 28px 0 8px; padding-top: 8px; }
+  .item { display: grid; grid-template-columns: 1fr auto; gap: 2px 14px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+  .item b { font-weight: 600; }
+  .item .p { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .item small { grid-column: 1 / -1; color: var(--muted); font-size: 13.5px; }
+  .tag { display: inline-block; font-size: 11px; border: 1px solid var(--accent); color: var(--accent); border-radius: 3px; padding: 0 4px; margin-left: 6px; vertical-align: 2px; }
+  @media print { @page { size: A4; margin: 12mm; } nav { display: none; } body { background: #fff; } }
+  .legend { margin-top: 30px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+</style>
+</head>
+<body>
+<div class="demo">Beispiel einer digitalen Speisekarte (fiktives Café)</div>
+<header><h1>Café Beispielbohne</h1><p>Frühstück · Kuchen · Kaffee · täglich 8–18 Uhr</p></header>
+<nav><a href="#fruehstueck">Frühstück</a><a href="#kuchen">Kuchen</a><a href="#kaffee">Kaffee</a><a href="#kalt">Kalte Getränke</a></nav>
+<main>
+  <h2 id="fruehstueck">Frühstück</h2>
+  <div class="item"><b>Kleines Frühstück</b><span class="p">6,90 €</span><small>2 Brötchen, Butter, Marmelade, Käse · A, G</small></div>
+  <div class="item"><b>Bohnen-Frühstück <span class="tag">vegan</span></b><span class="p">9,80 €</span><small>Sauerteigbrot, Hummus, Avocado, Tomate, Kresse · A, F</small></div>
+  <div class="item"><b>Rührei mit Schnittlauch</b><span class="p">7,50 €</span><small>3 Eier, Butterbrot · A, C, G</small></div>
+  <div class="item"><b>Joghurt-Bowl</b><span class="p">6,20 €</span><small>Naturjoghurt, Hafer-Knusper, Beeren, Honig · A, G</small></div>
+  <h2 id="kuchen">Kuchen</h2>
+  <div class="item"><b>Käsekuchen</b><span class="p">3,90 €</span><small>nach Hausrezept · A, C, G</small></div>
+  <div class="item"><b>Apfelstreusel</b><span class="p">3,70 €</span><small>mit Sahne +0,80 € · A, C, G</small></div>
+  <div class="item"><b>Schoko-Nuss-Brownie <span class="tag">vegan</span></b><span class="p">3,50 €</span><small>A, H</small></div>
+  <h2 id="kaffee">Kaffee &amp; Tee</h2>
+  <div class="item"><b>Espresso</b><span class="p">2,20 €</span></div>
+  <div class="item"><b>Cappuccino</b><span class="p">3,40 €</span><small>Hafermilch ohne Aufpreis · G</small></div>
+  <div class="item"><b>Latte Macchiato</b><span class="p">3,80 €</span><small>G</small></div>
+  <div class="item"><b>Tee, Kanne</b><span class="p">3,20 €</span><small>Schwarz, Grün, Kräuter</small></div>
+  <h2 id="kalt">Kalte Getränke</h2>
+  <div class="item"><b>Hausgemachte Zitronenlimo</b><span class="p">3,90 €</span><small>0,4 l</small></div>
+  <div class="item"><b>Apfelschorle</b><span class="p">3,20 €</span><small>0,4 l</small></div>
+  <div class="item"><b>Mineralwasser</b><span class="p">2,60 €</span><small>0,25 l, still oder sprudelnd</small></div>
+  <p class="legend">Allergene: A Gluten · C Ei · F Sesam · G Milch · H Schalenfrüchte. Alle Preise inkl. MwSt. Bei Fragen zu Allergenen sprechen Sie uns gern an.<br>(Beispieldaten – bei echten Aufträgen liefert der Betrieb alle Angaben und prüft sie.)</p>
+</main>
+</body>
+</html>
